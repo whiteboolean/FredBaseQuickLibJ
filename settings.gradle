@@ -1,0 +1,5 @@
+include ':News'
+include ':BaseLib'
+include ':BaseNetWork'
+include ':app'
+rootProject.name = "FredBaseQuickLibJ"

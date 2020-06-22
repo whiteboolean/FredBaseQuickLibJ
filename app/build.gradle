@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    def ext = rootProject.ext
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        applicationId  "com.frame.fred_quick_lib"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+//    KotlinOptions {
+//        jvmTarget = "1.8"
+//    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":BaseLib")
+}

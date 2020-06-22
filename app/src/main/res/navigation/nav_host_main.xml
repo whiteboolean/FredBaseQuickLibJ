@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host_main"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.frame.fred_quick_lib.main.fragments.BlankFragment"
+        android:label="blank_fragment"
+        tools:layout="@layout/blank_fragment" />
+    <fragment
+        android:id="@+id/blankFragment2"
+        android:name="com.frame.fred_quick_lib.main.fragments.BlankFragment2"
+        android:label="blank_fragment2"
+        tools:layout="@layout/blank_fragment2" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.frame.fred_quick_lib.main.fragments.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.frame.fred_quick_lib.main.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

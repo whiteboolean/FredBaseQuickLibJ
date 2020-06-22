@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+
+android {
+    def ext = rootProject.ext
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation 'junit:junit:4.12'
+    def ext = rootProject.ext
+    def squareUpRetrofit = ext.squareUpRetrofitVersion
+    implementation "com.squareup.retrofit2:retrofit:$squareUpRetrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$squareUpRetrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$squareUpRetrofit"
+
+    def squareUpOkHttpIntercept = ext.squareUpOkHttpInterceptVersion
+    implementation "com.squareup.okhttp3:logging-interceptor:$squareUpOkHttpIntercept"
+
+    def squareUpOkHttp3 = ext.squareUpOkHttp3Version
+    implementation "com.squareup.okhttp3:okhttp:$squareUpOkHttp3"
+
+    def gson = ext.googleGsonVersion
+    implementation "com.google.code.gson:gson:$gson"
+
+    def googleGuava = ext.googleGuavaVersion
+    implementation "com.google.guava:guava:$googleGuava"
+
+    def jakeRetrofitRxJava2= ext.jakeRetrofitRxJava2Version
+    api "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$jakeRetrofitRxJava2"
+    def rxAndroidJava2 = ext.rxAndroidJava2Version
+    api "io.reactivex.rxjava2:rxandroid:$rxAndroidJava2"
+    def rxAndroid2 = ext.rxAndroid2Version
+    api "io.reactivex:rxandroid:$rxAndroid2"
+}
