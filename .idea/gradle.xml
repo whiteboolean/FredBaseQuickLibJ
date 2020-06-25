@@ -11,10 +11,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/BaseLib" />
-            <option value="$PROJECT_DIR$/BaseNetWork" />
-            <option value="$PROJECT_DIR$/News" />
+            <option value="$PROJECT_DIR$/accountList" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/baseLib" />
+            <option value="$PROJECT_DIR$/baseNetWork" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/news" />
+            <option value="$PROJECT_DIR$/usercenter" />
+            <option value="$PROJECT_DIR$/webview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

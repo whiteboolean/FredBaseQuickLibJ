@@ -1,0 +1,197 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    def ext = rootProject.ext
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+
+    def ext = rootProject.ext
+    // Testing dependencies
+    def junit = ext.junitVersion
+    api "junit:junit:$junit"
+    testImplementation "junit:junit:$junit"
+    def androidCoreText =ext.androidxCoreTestingVersion
+    androidTestImplementation "androidx.arch.core:core-testing:$androidCoreText"
+    def esproesso = ext.androidxEsproessoVersion
+    androidTestImplementation "androidx.test.espresso:espresso-core:$esproesso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$esproesso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$esproesso"
+    def extJunit = ext.androidxExtJunitVersion
+    androidTestImplementation "androidx.test.ext:junit:$extJunit"
+    def uiAutomator = ext.androidxUiAutomatorVersion
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomator"
+    def work = ext.androidxWorkVersion
+    androidTestImplementation "androidx.work:work-testing:$work"
+    def truth = ext.googleTruthVersion
+    androidTestImplementation "com.google.truth:truth:$truth"
+    def roomVersion = ext.androidxRoomVersion
+    testImplementation "androidx.room:room-testing:$roomVersion"
+
+    //App dependencies
+    kapt "androidx.room:room-compiler:$rootProject.androidxRoomVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+
+    def androidxCompat = ext.androidxCompatVersion
+    api "androidx.appcompat:appcompat:$androidxCompat"
+
+    def constraintLayout = ext.androidxConstraintLayoutVersion
+    api "androidx.constraintlayout:constraintlayout:$constraintLayout"
+
+    def androidxPreference = ext.androidxPreferenceVersion
+    api "androidx.preference:preference:$androidxPreference"
+
+    def androidxSupportV4 = ext.androidxSupportV4Version
+    api "androidx.legacy:legacy-support-v4:$androidxSupportV4"
+
+    def androidxLifecycleExtensions = ext.androidxLifecycleExtensionsVersion
+    api "androidx.lifecycle:lifecycle-extensions:$androidxLifecycleExtensions"
+
+    def androidxFragmentKtx = ext.androidxFragmentKtxVersion
+    api "androidx.fragment:fragment-ktx:$androidxFragmentKtx"
+
+    def androidxCoreKtx = ext.androidxCoreKtxVersion
+    api "androidx.core:core-ktx:$androidxCoreKtx"
+
+    def androidxLifecycleRuntimeKtx = ext.androidxLifecycleRuntimeKtxVersion
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$androidxLifecycleRuntimeKtx"
+
+    def androidxPagingRuntimeKtx = ext.androidxPagingRuntimeKtxVersion
+    api "androidx.paging:paging-runtime-ktx:$androidxPagingRuntimeKtx"
+
+    def androidxViewPager2 = ext.androidxViewPager2Version
+    api "androidx.viewpager2:viewpager2:$androidxViewPager2"
+
+    def androidxLifecycle = ext.androidxLifecycleVersion
+    api "androidx.lifecycle:lifecycle-viewmodel:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-livedata:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-runtime:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-common-java8:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-service:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-process:$androidxLifecycle"
+    api "androidx.lifecycle:lifecycle-reactivestreams:$androidxLifecycle"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$androidxLifecycle"
+
+    def androidxLifecycleKtx = ext.androidxLifecycleKtxVersion
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifecycleKtx"
+
+    def androidxNavigation = ext.androidxNavigationVersion
+    api "androidx.navigation:navigation-fragment:$androidxNavigation"
+    api "androidx.navigation:navigation-ui:$androidxNavigation"
+    api "androidx.navigation:navigation-fragment-ktx:$androidxNavigation"
+
+    def androidxRoom= ext.androidxRoomVersion
+    api "androidx.room:room-runtime:$androidxRoom"
+    annotationProcessor "androidx.room:room-compiler:$androidxRoom"
+
+    def androidxWork = ext.androidxWordVersion
+    api "androidx.work:work-runtime-ktx:$androidxWork"
+
+    def androidxMediaRouter = ext.androidxMediaRouterVersion
+    api "androidx.mediarouter:mediarouter:$androidxMediaRouter"
+
+    def androidxSwipeRefreshLayout = ext.androidxSwipeRefreshLayoutVersion
+    api "androidx.swiperefreshlayout:swiperefreshlayout:$androidxSwipeRefreshLayout"
+
+    def gson = ext.googleGsonVersion
+    api "com.google.code.gson:gson:$gson"
+
+    def kotlin = ext.jetbrainsKotlinVersion
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin"
+
+    def coroutines = ext.jetbrainsCouroutinesVersion
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+
+    def googleMaterial = ext.googleMaterialVersion
+    api "com.google.android.material:material:$googleMaterial"
+
+
+    //unofficial
+    def leakCanary = ext.leakcanaryVersion
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakCanary"
+
+    def glide = ext.glideVersion
+    api "com.github.bumptech.glide:glide:$glide"
+
+    def shimmerLayout = ext.shimmerLayoutVersion
+    api "io.supercharge:shimmerlayout:$shimmerLayout"
+
+    def chrisBanesPhotoView = ext.chrisBanesPhotoViewVersion
+    api "com.github.chrisbanes.photoview:library:$chrisBanesPhotoView"
+
+    def eventBus = ext.eventBusVersion
+    api "org.greenrobot:eventbus:$eventBus"
+
+    def youthBanner = ext.youthBannerVersion
+    api "com.youth.banner:banner:$youthBanner"
+
+    def  lottie = ext.lottie
+    api "com.airbnb.android:lottie:$lottie"
+
+    def badgeView = ext.badgeView
+    api  "q.rorbin:badgeview:$badgeView"
+
+    def loadSir = ext.loadSir
+    api  "com.kingja.loadsir:loadsir:$loadSir"
+
+    def squareUpRetrofit = ext.squareUpRetrofitVersion
+    api "com.squareup.retrofit2:retrofit:$squareUpRetrofit"
+    api "com.squareup.retrofit2:converter-gson:$squareUpRetrofit"
+    api "com.squareup.retrofit2:adapter-rxjava:$squareUpRetrofit"
+
+    def squareUpOkHttpIntercept = ext.squareUpOkHttpInterceptVersion
+    api "com.squareup.okhttp3:logging-interceptor:$squareUpOkHttpIntercept"
+
+    def squareUpOkHttp3 = ext.squareUpOkHttp3Version
+    api "com.squareup.okhttp3:okhttp:$squareUpOkHttp3"
+
+    def jakeRetrofitRxJava2= ext.jakeRetrofitRxJava2Version
+    api "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$jakeRetrofitRxJava2"
+    def rxAndroidJava2 = ext.rxAndroidJava2Version
+    api "io.reactivex.rxjava2:rxandroid:$rxAndroidJava2"
+    def rxAndroid2 = ext.rxAndroid2Version
+    api "io.reactivex:rxandroid:$rxAndroid2"
+
+    def toastCompat = ext.toastCompatVersion
+    api "me.drakeet.support:toastcompat:$toastCompat"
+
+    def baseQuickAdapter = baseQucikAdapterVersion
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$baseQuickAdapter"
+
+
+}

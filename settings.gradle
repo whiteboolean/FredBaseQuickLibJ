@@ -1,5 +1,9 @@
-include ':News'
-include ':BaseLib'
-include ':BaseNetWork'
+include ':accountList'
+include ':usercenter'
+include ':webview'
+include ':common'
+include ':news'
+include ':baseLib'
+include ':baseNetWork'
 include ':app'
 rootProject.name = "FredBaseQuickLibJ"

@@ -5,7 +5,7 @@ buildscript {
         minSdkVersion = 21
         targetSdkVersion = 29
         compileSdkVersion = 28
-        buildToolsVersion = "28.0.3"
+        buildToolsVersion = "29.0.2"
 
         //App dependencies (official)
         junitVersion = "4.12"
@@ -46,10 +46,9 @@ buildscript {
         googleTruthVersion = "0.42"
         googleGuavaVersion = "23.3-android"
 
-
         //App dependencies (unofficial)
         squareUpOkHttp3Version = "3.8.0"
-        squareUpRetrofitVersion = "2.3.0"
+        squareUpRetrofitVersion = "2.6.2"
         squareUpOkHttpInterceptVersion = "3.9.1"
         jakeRetrofitRxJava2Version = "1.0.0"
         rxAndroidJava2Version = "2.1.1"
@@ -63,6 +62,9 @@ buildscript {
         lottie = "2.8.0"
         badgeView = "1.1.3"
         loadSir = "1.3.6"
+        androidCcRegister = "1.1.2"
+        toastCompatVersion = "1.1.0"
+        baseQucikAdapterVersion = "3.0.4"
 
         repositories {
             google()
@@ -72,6 +74,7 @@ buildscript {
             classpath "com.android.tools.build:gradle:$gradleVersion"
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$jetbrainsKotlinVersion"
             classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$androidxNavigationVersion"
+            classpath "com.billy.android:cc-register:$androidCcRegister"
         }
     }
 }
@@ -82,6 +85,7 @@ plugins {
 
 allprojects {
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
     }

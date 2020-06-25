@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
+ext.mainapp=true
+apply from: rootProject.file('cc-settings-2.gradle')
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 
 android {
     def ext = rootProject.ext
@@ -12,7 +15,10 @@ android {
     defaultConfig {
         minSdkVersion ext.minSdkVersion
         targetSdkVersion ext.targetSdkVersion
-        applicationId  "com.frame.fred_quick_lib"
+        //仅在以application方式编译时才添加applicationId属性
+        if (project.ext.runAsApp) {
+            applicationId  "com.frame.fred_quick_lib"
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode 1
         versionName "1.0"
@@ -49,5 +55,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(":BaseLib")
+
+    addComponent 'news' //会默认添加依赖 project(":news")
+    addComponent 'webview'
+    addComponent 'usercenter'
+    addComponent 'accountList'
 }
