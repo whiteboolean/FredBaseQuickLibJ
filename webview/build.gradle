@@ -32,4 +32,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     api project(':baseLib')
+    def ext = rootProject.ext
+    def agentWeb = ext.agentWebVersion
+    implementation "com.just.agentweb:agentweb:${agentWeb}" // (必选)
+    def agentFileChooser = ext.agentfileChooserVersion
+    implementation "com.just.agentweb:filechooser:${agentFileChooser}"// (可选)
 }

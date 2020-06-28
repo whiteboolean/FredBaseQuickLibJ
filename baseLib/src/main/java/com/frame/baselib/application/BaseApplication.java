@@ -2,7 +2,16 @@ package com.frame.baselib.application;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.Utils;
 import com.frame.baselib.utils.preference.PreferencesUtil;
+import com.frame.baselib.view.loadsir.CustomCallback;
+import com.frame.baselib.view.loadsir.EmptyCallback;
+import com.frame.baselib.view.loadsir.ErrorCallback;
+import com.frame.baselib.view.loadsir.LoadingCallback;
+import com.frame.baselib.view.loadsir.LottieEmptyCallback;
+import com.frame.baselib.view.loadsir.LottieLoadingCallback;
+import com.frame.baselib.view.loadsir.TimeoutCallback;
+import com.kingja.loadsir.core.LoadSir;
 
 public class BaseApplication extends Application {
 
@@ -18,6 +27,17 @@ public class BaseApplication extends Application {
         super.onCreate();
         sAppContext = this;
         PreferencesUtil.init(this);
+        Utils.init(this);
+        LoadSir.beginBuilder()
+                .addCallback(new ErrorCallback())//添加各种状态页
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .addCallback(new TimeoutCallback())
+                .addCallback(new CustomCallback())
+                .addCallback(new LottieEmptyCallback())
+                .addCallback(new LottieLoadingCallback())
+                .setDefaultCallback(LoadingCallback.class)//设置默认状态页
+                .commit();
 
     }
 }

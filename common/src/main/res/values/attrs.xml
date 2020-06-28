@@ -115,4 +115,7 @@
     <attr name="c903" format="reference|color"/>
     <attr name="c904" format="reference|color"/>
     <attr name="c905" format="reference|color"/>
+    <declare-styleable name="FixDragLayout">
+        <attr name="android:orientation" />
+    </declare-styleable>
 </resources>

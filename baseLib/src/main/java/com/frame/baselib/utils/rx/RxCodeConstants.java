@@ -9,4 +9,5 @@ public class RxCodeConstants {
     public static final int LOGIN = 3;
     public static final int FIND_CUSTOM = 4;
     public static final int JUMP_TO_MAIN = 5;
+    public static final int REFRESH_SWIPE_STATE_CHANGE = 6;
 }

@@ -32,8 +32,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initViews() {
         adapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), getLifecycle());
         if (PreferencesUtil.getInstance().getBoolean(IS_SHOW_GUIDE, true)) {
             adapter.addFragment(adFragment);
@@ -43,6 +42,7 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainViewMode
         }
         adapter.addFragment(mHomeFragment);
         dataBinding.setLifecycleOwner(this);
+        dataBinding.viewPager2.setUserInputEnabled(false);
         dataBinding.viewPager2.setAdapter(adapter);
         dataBinding.viewPager2.setOffscreenPageLimit(3);
     }

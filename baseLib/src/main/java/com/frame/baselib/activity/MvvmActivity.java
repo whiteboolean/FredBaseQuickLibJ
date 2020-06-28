@@ -34,7 +34,7 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity implements IBaseView {
 
-    protected VM vm;
+    protected VM viewModel;
     protected V dataBinding;
     protected LoadService<?> loadService;
     private CompositeDisposable mCompositeDisposable;
@@ -47,12 +47,16 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
         super.onCreate(savedInstanceState);
         initViewModel();
         initDataBinding();
+        initViews();
     }
 
+    protected abstract void initViews();
+
     protected void initViewModel() {
-        Class<VM> viewModel = ClassUtil.getViewModel(this);
-        if (viewModel != null) {
-            vm = new ViewModelProvider(this).get(viewModel);
+        Class<VM> vm = ClassUtil.getViewModel(this);
+        if (vm != null) {
+            ViewModelProvider.AndroidViewModelFactory factory = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication());
+            viewModel = factory.create(vm);
         }
     }
 

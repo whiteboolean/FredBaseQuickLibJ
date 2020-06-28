@@ -1,5 +1,7 @@
 package com.frame.usercenter.main;
 
+import android.view.View;
+
 import com.frame.baselib.fragment.MvvmFragment;
 import com.frame.usercenter.R;
 import com.frame.usercenter.databinding.FragmentUserCenterBinding;
@@ -13,14 +15,20 @@ public class UserCenterFragment extends MvvmFragment<FragmentUserCenterBinding,U
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected void initParameters() {
 
     }
 
     @Override
-    protected void onRetryBtnClick() {
+    protected void onRetryBtnClick(View view) {
 
     }
+
 
     @Override
     protected String getFragmentTag() {

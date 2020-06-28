@@ -3,6 +3,7 @@ package com.frame.news;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
+import com.frame.news.headlinenews.NewsFragment;
 
 public class NewsComponent implements IComponent {
 
@@ -15,11 +16,11 @@ public class NewsComponent implements IComponent {
 
     @Override
     public boolean onCall(CC cc) {
-        String actionName = cc.getComponentName();
+        String actionName = cc.getActionName();
         switch (actionName) {
-            case "BlankFragment":
+            case "NewsFragment":
                 CCResult ccResult = new CCResult();
-//                ccResult.addData("fragment", new NewsFragment());
+                ccResult.addData("fragment", new NewsFragment());
                 CC.sendCCResult(cc.getCallId(), ccResult);
                 return false;
             default:

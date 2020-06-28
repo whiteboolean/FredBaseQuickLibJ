@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.frame.common">
-    <application
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true">
-        <activity android:name="debug.ActivityCommon">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--    <application-->
+<!--        android:allowBackup="true"-->
+<!--        android:label="@string/app_name"-->
+<!--        android:supportsRtl="true">-->
+<!--&lt;!&ndash;        <activity android:name="debug.ActivityCommon">&ndash;&gt;-->
+<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
+<!--&lt;!&ndash;                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+<!--&lt;!&ndash;                <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
+<!--&lt;!&ndash;        </activity>&ndash;&gt;-->
+<!--    </application>-->
 </manifest>

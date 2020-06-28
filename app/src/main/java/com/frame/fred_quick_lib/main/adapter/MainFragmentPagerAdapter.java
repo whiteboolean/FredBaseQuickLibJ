@@ -1,17 +1,10 @@
 package com.frame.fred_quick_lib.main.adapter;
 
-import android.content.Context;
-import android.view.WindowManager;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.frame.fred_quick_lib.main.activities.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +21,7 @@ public class MainFragmentPagerAdapter extends FragmentStateAdapter {
 
     private List<Long> ids = new ArrayList<>();
 
-    public MainFragmentPagerAdapter(  FragmentManager fm, Lifecycle lifecycle) {
+    public MainFragmentPagerAdapter( FragmentManager fm, Lifecycle lifecycle) {
         super(fm,lifecycle);
         fragments = new ArrayList<>();
         for (Fragment fragment : fragments) {

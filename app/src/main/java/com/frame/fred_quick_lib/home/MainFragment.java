@@ -18,6 +18,7 @@ import com.billy.cc.core.component.CCResult;
 import com.frame.baselib.fragment.MvvmFragment;
 import com.frame.fred_quick_lib.R;
 import com.frame.fred_quick_lib.databinding.FragmentHomeBinding;
+import com.frame.fred_quick_lib.main.fragments.ItemFragment;
 import com.frame.fred_quick_lib.main.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,10 +28,10 @@ import q.rorbin.badgeview.QBadgeView;
 public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewModel> {
 
     private static final String TAG = "MainFragment";
-    private Fragment mHomeFragment ;
+    private Fragment mHomeFragment;
     private Fragment userCenterFragment;
-    private Fragment settingFragment ;
-    private Fragment settingFragment1 ;
+    private Fragment newsFragment;
+    private Fragment settingFragment;
     Fragment fromFragment;
 
     @Override
@@ -40,60 +41,55 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
     }
 
     @Override
-    protected void initParameters() {
+    protected void initData() {
 
+    }
+
+    @Override
+    protected void initParameters() {
         //同步请求 new模块
         CCResult call = CC.obtainBuilder("news")
-                .setActionName("BlankFragment")
+                .setActionName("NewsFragment")
                 .build()
                 .call();
         mHomeFragment = call.getDataItem("fragment");
 
         //同步请求
-        userCenterFragment = mHomeFragment;
-        settingFragment = mHomeFragment;
-        settingFragment1 = mHomeFragment;
-
+        userCenterFragment = ItemFragment.newInstance(100);
+        newsFragment = ItemFragment.newInstance(5);
+        settingFragment = ItemFragment.newInstance(8);
+        fromFragment = mHomeFragment;
         dataBinding.bottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragCategory = null;
                 // init corresponding fragment
-                switch (item.getItemId()) {
-                    case R.id.menuOne:
-                        fragCategory = mHomeFragment;
-                        break;
-                    case R.id.menuTwo:
-                        fragCategory = mHomeFragment;
-                        break;
-                    case R.id.menuThree:
-                        fragCategory = mHomeFragment;
-                        break;
-                    case R.id.menuFour:
-                        fragCategory = mHomeFragment;
-                        break;
+                int itemId = item.getItemId();
+                if (itemId == R.id.menuOne) {
+                    fragCategory = mHomeFragment;
+                } else if (itemId == R.id.menuTwo) {
+                    fragCategory = newsFragment;
+                } else if (itemId == R.id.menuThree) {
+                    fragCategory = settingFragment;
+                } else if (itemId == R.id.menuFour) {
+                    fragCategory = userCenterFragment;
                 }
-                //Set bottom menu selected item text in toolbar
-                ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.setTitle(item.getTitle());
-                }
+
                 switchFragment(fromFragment, fragCategory);
                 fromFragment = fragCategory;
                 return true;
             }
         });
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment, mHomeFragment, mHomeFragment.getClass().getSimpleName());
+        transaction.replace(R.id.fragment, mHomeFragment);
         transaction.commit();
         showBadgeView(3, 5);
-
 
 
     }
 
     @Override
-    protected void onRetryBtnClick() {
+    protected void onRetryBtnClick(View view) {
 
     }
 
@@ -103,13 +99,10 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
     }
 
 
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
     }
-
-
 
 
     private void switchFragment(Fragment from, Fragment to) {
@@ -120,16 +113,12 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
                 if (from != null) {
                     transaction.hide(from);
                 }
-                if (to != null) {
-                    transaction.add(R.id.container, to, to.getClass().getName()).commit();
-                }
+                transaction.add(R.id.fragment, to, to.getClass().getName()).commit();
             } else {
                 if (from != null) {
                     transaction.hide(from);
                 }
-                if (to != null) {
-                    transaction.show(to).commit();
-                }
+                transaction.show(to).commit();
 
             }
         }

@@ -1,5 +1,6 @@
 package com.frame.baselib.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,8 @@ import com.frame.baselib.utils.ToastUtil;
 import com.frame.baselib.view.loadsir.EmptyCallback;
 import com.frame.baselib.view.loadsir.ErrorCallback;
 import com.frame.baselib.view.loadsir.LoadingCallback;
+import com.frame.baselib.view.loadsir.LottieEmptyCallback;
+import com.frame.baselib.view.loadsir.LottieLoadingCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
@@ -35,7 +38,8 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
     private static final String TAG = "MvvmFragment";
     protected VM viewModel;
     protected V dataBinding;
-    private LoadService mLoadService;
+    public LoadService mLoadService;
+    public Context context;
     private CompositeDisposable mCompositeDisposable;
 
 
@@ -43,27 +47,36 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
     @LayoutRes
     int getLayoutId();
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        Class<VM> vm = ClassUtil.getViewModel(this);
+        if (vm != null) {
+            if (getActivity() != null && getActivity().getApplication() != null) {
+                ViewModelProvider.AndroidViewModelFactory factory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
+                viewModel = factory.create(vm);
+            } else {
+                viewModel = new ViewModelProvider(requireActivity()).get(vm);
+            }
+        }
+        initParameters();
         return dataBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Class<VM> vm = ClassUtil.getViewModel(this);
-        if (vm != null) {
-            viewModel = new ViewModelProvider(requireActivity()).get(vm);
-        }
-        initParameters();
+        initData();
     }
+
+    protected abstract void initData();
 
     /***
      *   初始化参数
      */
-    protected abstract void initParameters();
+    protected void initParameters() {
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -84,6 +97,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
             if (!isShowedContent) {
                 mLoadService.showCallback(ErrorCallback.class);
             } else {
+                //TODO 加载失败弹出toast
                 ToastUtil.showToast(message);
             }
         }
@@ -92,7 +106,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
     @Override
     public void showLoading() {
         if (mLoadService != null) {
-            mLoadService.showCallback(LoadingCallback.class);
+            mLoadService.showCallback(LottieLoadingCallback.class);
         }
     }
 
@@ -106,7 +120,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
         }
     }
 
-    protected abstract void onRetryBtnClick();
+    protected abstract void onRetryBtnClick(View view);
 
     @Override
     public void onLoadMoreFailure(String message) {
@@ -123,16 +137,18 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
         mLoadService = LoadSir.getDefault().register(view, new Callback.OnReloadListener() {
             @Override
             public void onReload(View v) {
-                onRetryBtnClick();
+                onRetryBtnClick(v);
             }
         });
     }
+
 
     protected abstract String getFragmentTag();
 
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
+        this.context = context;
         DebugUtil.debug(getFragmentTag(), this + ": " + "onAttach");
     }
 
@@ -164,6 +180,10 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
     public void onDestroy() {
         super.onDestroy();
         DebugUtil.debug(getFragmentTag(), this + ": " + "onDestroy");
+        if (this.mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
+            // clear 和 dispose的区别是：  disposed = true;
+            this.mCompositeDisposable.clear();
+        }
     }
 
 

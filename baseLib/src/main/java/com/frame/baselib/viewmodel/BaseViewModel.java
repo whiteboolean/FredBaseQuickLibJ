@@ -27,16 +27,7 @@ public class BaseViewModel extends AndroidViewModel {
         super(application);
     }
 
-
-    protected <T> void execute(Observable<T> observable, Observer<T> observer) {
-        observable
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    protected void addDisposable(Disposable disposable) {
+    public void addDisposable(Disposable disposable) {
         if (this.mCompositeDisposable == null) {
             this.mCompositeDisposable = new CompositeDisposable();
         }
@@ -44,7 +35,7 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     @Override
-    protected void onCleared() {
+    public void onCleared() {
         super.onCleared();
         if (this.mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
             this.mCompositeDisposable.clear();

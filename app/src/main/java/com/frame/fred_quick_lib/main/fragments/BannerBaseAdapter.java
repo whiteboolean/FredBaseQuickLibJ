@@ -18,6 +18,8 @@ import java.util.List;
  * Created by Fred Lei
  * 2020年06月24日19:18:12
  *
+ * 轮播图通用适配器
+ *
  * @param <V> View
  * @param <M> Model
  */

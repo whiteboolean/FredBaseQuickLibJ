@@ -2,12 +2,14 @@ package com.frame.fred_quick_lib.main.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.frame.baselib.activity.MvvmActivity;
+import com.frame.baselib.utils.DebugUtil;
 import com.frame.fred_quick_lib.R;
 
 /**
@@ -29,20 +31,20 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
                 finish();
+                DebugUtil.error("Finish");
             }
-        }, 800);
+        }, 500);
     }
 
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
             handler = null;
         }
 

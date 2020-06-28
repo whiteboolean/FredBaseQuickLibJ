@@ -36,7 +36,6 @@ android {
 
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
-
     def ext = rootProject.ext
     // Testing dependencies
     def junit = ext.junitVersion
@@ -192,6 +191,9 @@ dependencies {
 
     def baseQuickAdapter = baseQucikAdapterVersion
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$baseQuickAdapter"
+
+    def blankJCodeUtils = blankJCodeUtilsVersion
+    api "com.blankj:utilcodex:$blankJCodeUtils"
 
 
 }

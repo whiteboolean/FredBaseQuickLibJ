@@ -34,6 +34,11 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected void initParameters() {
         dataBinding.setLifecycleOwner(this);
         FragmentActivity activity = getActivity();
@@ -44,7 +49,7 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
     }
 
     @Override
-    protected void onRetryBtnClick() {
+    protected void onRetryBtnClick(View v) {
 
     }
 
