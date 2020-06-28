@@ -19,7 +19,7 @@
 
 * CC
 >描述：实现组件化功能框架
->> (项目git地址)[https://github.com/luckybilly/CC]
+>> [项目git地址](https://github.com/luckybilly/CC)
 >> [文档说明](https://qibilly.com/CC-website/#/q&a)
 
 * BaseQuickAdapter
@@ -32,22 +32,22 @@
 
 * AgentWeb
 > 描述：Web组件
-> [项目Git地址](https://github.com/Justson/AgentWeb)
+>> [项目Git地址](https://github.com/Justson/AgentWeb)
 
 * BlankJUtils
 > 描述：工具类大全
->> [项目地址](https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md)
+>> [项目Git地址](https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md)
 
 * Lottile
 > 描述:使用json文件完美实现各种动画
->> [项目地址](https://github.com/KingJA/LoadSir)
+>> [项目Git地址](https://github.com/KingJA/LoadSir)
 
 * Loadsir
 > 描述:自动注入各种状态布局
 >> [项目Git地址](https://github.com/KingJA/LoadSir)
 
 
-## 第三方框架集合(
+## 第三方框架集合
 名称 | 用途| 使用度
 ---|---|---|
 BaseQuickAdapter|recyclerView适配器|20%|
