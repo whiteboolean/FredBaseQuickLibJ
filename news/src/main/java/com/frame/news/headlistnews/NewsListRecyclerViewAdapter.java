@@ -4,8 +4,8 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
-import com.frame.common.databinding.PictureTitleViewBinding;
 import com.frame.common.views.picturetitleview.PictureTitleViewViewModel;
+import com.frame.news.databinding.PictureTitleViewBinding;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,9 +1,7 @@
 package com.frame.baselib.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +20,6 @@ import com.frame.baselib.utils.DebugUtil;
 import com.frame.baselib.utils.ToastUtil;
 import com.frame.baselib.view.loadsir.EmptyCallback;
 import com.frame.baselib.view.loadsir.ErrorCallback;
-import com.frame.baselib.view.loadsir.LoadingCallback;
-import com.frame.baselib.view.loadsir.LottieEmptyCallback;
 import com.frame.baselib.view.loadsir.LottieLoadingCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
@@ -60,16 +56,17 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
             }
         }
         initParameters();
+        dataBinding.setLifecycleOwner(this);
         return dataBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
+        initViews();
     }
 
-    protected abstract void initData();
+    protected abstract void initViews();
 
     /***
      *   初始化参数

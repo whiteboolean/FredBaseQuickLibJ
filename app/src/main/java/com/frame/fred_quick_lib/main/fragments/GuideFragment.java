@@ -34,7 +34,7 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
     }
 
     @Override
-    protected void initData() {
+    protected void initViews() {
 
     }
 

@@ -41,7 +41,7 @@ dependencies {
     def junit = ext.junitVersion
     api "junit:junit:$junit"
     testImplementation "junit:junit:$junit"
-    def androidCoreText =ext.androidxCoreTestingVersion
+    def androidCoreText = ext.androidxCoreTestingVersion
     androidTestImplementation "androidx.arch.core:core-testing:$androidCoreText"
     def esproesso = ext.androidxEsproessoVersion
     androidTestImplementation "androidx.test.espresso:espresso-core:$esproesso"
@@ -111,7 +111,7 @@ dependencies {
     api "androidx.navigation:navigation-ui:$androidxNavigation"
     api "androidx.navigation:navigation-fragment-ktx:$androidxNavigation"
 
-    def androidxRoom= ext.androidxRoomVersion
+    def androidxRoom = ext.androidxRoomVersion
     api "androidx.room:room-runtime:$androidxRoom"
     annotationProcessor "androidx.room:room-compiler:$androidxRoom"
 
@@ -159,14 +159,14 @@ dependencies {
     def youthBanner = ext.youthBannerVersion
     api "com.youth.banner:banner:$youthBanner"
 
-    def  lottie = ext.lottie
+    def lottie = ext.lottie
     api "com.airbnb.android:lottie:$lottie"
 
     def badgeView = ext.badgeView
-    api  "q.rorbin:badgeview:$badgeView"
+    api "q.rorbin:badgeview:$badgeView"
 
     def loadSir = ext.loadSir
-    api  "com.kingja.loadsir:loadsir:$loadSir"
+    api "com.kingja.loadsir:loadsir:$loadSir"
 
     def squareUpRetrofit = ext.squareUpRetrofitVersion
     api "com.squareup.retrofit2:retrofit:$squareUpRetrofit"
@@ -179,7 +179,7 @@ dependencies {
     def squareUpOkHttp3 = ext.squareUpOkHttp3Version
     api "com.squareup.okhttp3:okhttp:$squareUpOkHttp3"
 
-    def jakeRetrofitRxJava2= ext.jakeRetrofitRxJava2Version
+    def jakeRetrofitRxJava2 = ext.jakeRetrofitRxJava2Version
     api "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$jakeRetrofitRxJava2"
     def rxAndroidJava2 = ext.rxAndroidJava2Version
     api "io.reactivex.rxjava2:rxandroid:$rxAndroidJava2"
@@ -189,11 +189,22 @@ dependencies {
     def toastCompat = ext.toastCompatVersion
     api "me.drakeet.support:toastcompat:$toastCompat"
 
-    def baseQuickAdapter = baseQucikAdapterVersion
+    def baseQuickAdapter = ext.baseQucikAdapterVersion
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$baseQuickAdapter"
 
-    def blankJCodeUtils = blankJCodeUtilsVersion
+    def blankJCodeUtils = ext.blankJCodeUtilsVersion
     api "com.blankj:utilcodex:$blankJCodeUtils"
 
+    def xPopUp = ext.xPopUpVersion
+    api "com.lxj:xpopup:${xPopUp}"
+
+    def easyAdapter = ext.easyAdapterVersion
+    api "com.lxj:easyadapter:${easyAdapter}"
+
+    def stateLayout = ext.stateLayoutVersion
+    api "com.lxj:statelayout:${stateLayout}"
+
+    def tkRefreshLayout = ext.tkRefreshLayoutVersion
+    api "com.lcodecorex:tkrefreshlayout:${tkRefreshLayout}"
 
 }

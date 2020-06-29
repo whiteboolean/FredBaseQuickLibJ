@@ -68,6 +68,10 @@ buildscript {
         blankJCodeUtilsVersion = "1.29.0"
         agentWebVersion = "4.1.3"
         agentfileChooserVersion = "4.1.3"
+        xPopUpVersion = '2.0.5-rc3'
+        easyAdapterVersion = "1.2.0"
+        stateLayoutVersion ='1.0.9'
+        tkRefreshLayoutVersion = "1.0.7"
 
 
         repositories {

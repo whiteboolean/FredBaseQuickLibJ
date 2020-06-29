@@ -3,7 +3,6 @@ package com.frame.fred_quick_lib.main.activities;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.frame.baselib.activity.MvvmActivity;
@@ -59,5 +58,6 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainViewMode
             supportActionBar.show();
         }
     }
+
 
 }

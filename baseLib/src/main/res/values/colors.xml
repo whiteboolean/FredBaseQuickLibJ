@@ -14,4 +14,6 @@
     <color name="hard_color">#48495f</color>
     <color name="clickspan_color">#00ddb6</color>
     <color name="dull_blue">#3B4BBF</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorWhiteHalf">#bbffffff</color>
 </resources>

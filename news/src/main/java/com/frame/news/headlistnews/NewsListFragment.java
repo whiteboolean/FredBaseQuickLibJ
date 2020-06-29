@@ -57,7 +57,7 @@ public class NewsListFragment extends MvvmFragment<FragmentNewsListBinding, News
 
 
     @Override
-    protected void initData() {
+    protected void initViews() {
         List<PictureTitleViewViewModel> value = viewModel.dataList.getValue();
         mAdapter = new NewsListRecyclerViewAdapter(R.layout.picture_title_view, value);
         viewModel.load(mChannelId, mChannelName, new OnLoadDataStateListener());

@@ -17,7 +17,7 @@ public class UserCenterComponent implements IComponent {
         switch (actionName) {
             case "UserCenterFragment":
                 CCResult result = new CCResult();
-                result.addData("UserCenterFragment()", new UserCenterFragment());
+                result.addData("fragment", new UserCenterFragment());
                 CC.sendCCResult(cc.getCallId(), result);
                 return false;
             default:

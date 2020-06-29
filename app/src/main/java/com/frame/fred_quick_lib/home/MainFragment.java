@@ -1,17 +1,13 @@
 package com.frame.fred_quick_lib.home;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -21,7 +17,6 @@ import com.frame.fred_quick_lib.databinding.FragmentHomeBinding;
 import com.frame.fred_quick_lib.main.fragments.ItemFragment;
 import com.frame.fred_quick_lib.main.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import q.rorbin.badgeview.QBadgeView;
 
@@ -31,61 +26,72 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
     private Fragment mHomeFragment;
     private Fragment userCenterFragment;
     private Fragment newsFragment;
-    private Fragment settingFragment;
+    private Fragment webViewFragment;
     Fragment fromFragment;
 
+
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getLayoutId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initViews() {
         showBadgeView(3, 5);
     }
 
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
     protected void initParameters() {
+        dataBinding.setData(viewModel);
         //同步请求 new模块
         CCResult call = CC.obtainBuilder("news")
                 .setActionName("NewsFragment")
                 .build()
                 .call();
+        //同步请求，usercenter模块
+        CCResult userCenter = CC.obtainBuilder("usercenter")
+                .setActionName("UserCenterFragment")
+                .build()
+                .call();
+        //同步请求，webview模块
+        CCResult webView = CC.obtainBuilder("webview")
+                .setActionName("BaseWebViewFragment")
+                .build()
+                .call();
         mHomeFragment = call.getDataItem("fragment");
-
-        //同步请求
-        userCenterFragment = ItemFragment.newInstance(100);
+        userCenterFragment = userCenter.getDataItem("fragment");
         newsFragment = ItemFragment.newInstance(5);
-        settingFragment = ItemFragment.newInstance(8);
+        webViewFragment = webView.getDataItem("fragment");
         fromFragment = mHomeFragment;
-        dataBinding.bottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragCategory = null;
-                // init corresponding fragment
-                int itemId = item.getItemId();
-                if (itemId == R.id.menuOne) {
-                    fragCategory = mHomeFragment;
-                } else if (itemId == R.id.menuTwo) {
-                    fragCategory = newsFragment;
-                } else if (itemId == R.id.menuThree) {
-                    fragCategory = settingFragment;
-                } else if (itemId == R.id.menuFour) {
-                    fragCategory = userCenterFragment;
-                }
-
-                switchFragment(fromFragment, fragCategory);
-                fromFragment = fragCategory;
-                return true;
-            }
-        });
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, mHomeFragment);
         transaction.commit();
         showBadgeView(3, 5);
+        dataBinding.bottomView.setOnNavigationItemSelectedListener(this::onNavigateItemSelected);
+    }
 
 
+    private boolean onNavigateItemSelected(MenuItem item) {
+        Fragment fragCategory;
+        int itemId = item.getItemId();
+        if (itemId == R.id.menuOne) {
+            fragCategory = mHomeFragment;
+            viewModel.tvTitle.postValue("首页");
+        } else if (itemId == R.id.menuTwo) {
+            fragCategory = newsFragment;
+            viewModel.tvTitle.postValue("待定");
+        } else if (itemId == R.id.menuThree) {
+            fragCategory = webViewFragment;
+            viewModel.tvTitle.postValue("webView");
+        } else {
+            fragCategory = userCenterFragment;
+            viewModel.tvTitle.postValue("对话框");
+        }
+
+
+        switchFragment(fromFragment, fragCategory);
+        fromFragment = fragCategory;
+        return true;
     }
 
     @Override
@@ -99,10 +105,6 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
     }
 
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_home;
-    }
 
 
     private void switchFragment(Fragment from, Fragment to) {
@@ -132,11 +134,9 @@ public class MainFragment extends MvvmFragment<FragmentHomeBinding, MainViewMode
                 getActivity().finish();
                 break;
             }
-            // case blocks for other MenuItems (if any)
         }
         return true;
     }
-
 
     /**
      * BottomNavigationView显示角标

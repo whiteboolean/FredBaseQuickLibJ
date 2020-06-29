@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.frame.common.R;
-import com.frame.common.databinding.PictureTitleViewBinding;
-
 
 /**
  * Created by Allen on 2017/7/20.

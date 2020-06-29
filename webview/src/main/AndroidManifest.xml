@@ -1,4 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.frame.webview">
 
+    <application>
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:name=".main.webview.config.BaseWebViewActivity"/>
+    </application>
 </manifest>

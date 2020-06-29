@@ -30,7 +30,7 @@ public class NewsFragment extends MvvmFragment<FragmentNewBlankBinding, NewsView
     }
 
     @Override
-    protected void initData() {
+    protected void initViews() {
         //获取分页数据
         dataBinding.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         loadChannelData();

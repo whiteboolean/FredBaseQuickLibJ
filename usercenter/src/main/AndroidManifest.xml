@@ -1,3 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.frame.usercenter">
+
+    <application >
+        <activity android:name=".dialog.DemoActivity" />
+        <activity android:name=".dialog.UserCenterMainActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/UserCenterAppTheme"/>
+        <activity android:name="debug.ActivityCommon"/>
+    </application>
 </manifest>

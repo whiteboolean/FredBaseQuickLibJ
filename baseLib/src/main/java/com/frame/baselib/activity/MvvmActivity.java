@@ -8,10 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.frame.baselib.R;
 import com.frame.baselib.utils.ClassUtil;
+import com.frame.baselib.utils.CommonUtils;
+import com.frame.baselib.utils.StatusBarUtil;
 import com.frame.baselib.view.IBaseView;
 import com.frame.baselib.view.loadsir.EmptyCallback;
 import com.frame.baselib.view.loadsir.ErrorCallback;
@@ -25,9 +27,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 1.initViewModel()
- * 2.performDataBinding();
- *
  * @param <V>
  * @param <VM>
  */
@@ -48,6 +47,12 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
         initViewModel();
         initDataBinding();
         initViews();
+        initStatusBar();
+    }
+
+    protected void initStatusBar() {
+        // 设置透明状态栏，兼容4.4
+        StatusBarUtil.setColor(this, CommonUtils.getColor(R.color.colorPrimary), 0);
     }
 
     protected abstract void initViews();
