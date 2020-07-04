@@ -1,5 +1,6 @@
 package com.frame.basenetwork.api;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.frame.baselib.application.BaseApplication;
 import com.frame.basenetwork.errorhandler.AppDataErrorHandler;
 import com.frame.basenetwork.errorhandler.HttpErrorHandler;
@@ -81,6 +82,7 @@ public class ApiBase {
         builder.cache(cache);
         //缓存拦截器
         builder.addNetworkInterceptor(new AddCacheInterceptor());
+        builder.addNetworkInterceptor(new StethoInterceptor());
     }
 
     public static void setNetWorkRequestInfo(INetWorkRequestInfo info) {

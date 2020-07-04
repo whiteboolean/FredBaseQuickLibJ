@@ -54,24 +54,5 @@ public class NewsViewModel extends BaseViewModel {
     }
 
 
-    /**
-     * 获取新闻列表数据
-     */
-
-    protected void loadNewsListData() {
-//        NewsApi.getInstance().getNewsList(new BaseSingleObserver<NewsListBean>(this) {
-//            @Override
-//            public void onSuccessful(NewsListBean newsListBean) {
-//
-//            }
-//
-//            @Override
-//            public void onError(ExceptionHandle.ResponeThrowable e) {
-//
-//            }
-//        });
-
-    }
-
 
 }

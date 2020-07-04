@@ -59,7 +59,7 @@ buildscript {
         chrisBanesPhotoViewVersion = "1.2.4"
         eventBusVersion = "3.1.1"
         youthBannerVersion = "2.0.10"
-        lottie = "2.8.0"
+        lottieVersion = "3.4.1"
         badgeView = "1.1.3"
         loadSir = "1.3.6"
         androidCcRegister = "1.1.2"
@@ -72,6 +72,7 @@ buildscript {
         easyAdapterVersion = "1.2.0"
         stateLayoutVersion ='1.0.9'
         tkRefreshLayoutVersion = "1.0.7"
+        faceBookStethoVersion = "1.5.1"
 
 
         repositories {

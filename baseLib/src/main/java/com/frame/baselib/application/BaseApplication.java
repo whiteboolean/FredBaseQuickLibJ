@@ -3,6 +3,8 @@ package com.frame.baselib.application;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.facebook.stetho.Stetho;
+import com.frame.baselib.BuildConfig;
 import com.frame.baselib.utils.preference.PreferencesUtil;
 import com.frame.baselib.view.loadsir.CustomCallback;
 import com.frame.baselib.view.loadsir.EmptyCallback;
@@ -12,14 +14,15 @@ import com.frame.baselib.view.loadsir.LottieEmptyCallback;
 import com.frame.baselib.view.loadsir.LottieLoadingCallback;
 import com.frame.baselib.view.loadsir.TimeoutCallback;
 import com.kingja.loadsir.core.LoadSir;
+import com.squareup.leakcanary.LeakCanary;
 
 public class BaseApplication extends Application {
 
     public static Application sAppContext;
     public static boolean sDebug;
 
-    public void setDebug(boolean isDebug){
-        sDebug = isDebug ;
+    public void setDebug(boolean isDebug) {
+        sDebug = isDebug;
     }
 
     @Override
@@ -39,5 +42,11 @@ public class BaseApplication extends Application {
                 .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                 .commit();
 
+        if (sDebug) {
+            Stetho.initializeWithDefaults(this);
+            if (!LeakCanary.isInAnalyzerProcess(this)) {
+                LeakCanary.install(this);
+            }
+        }
     }
 }

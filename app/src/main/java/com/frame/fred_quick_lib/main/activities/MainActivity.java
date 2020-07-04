@@ -49,6 +49,8 @@ public class MainActivity extends MvvmActivity<ActivityMainBinding, MainViewMode
     @Override
     public void removeMeAndGoNextFragment() {
         adapter.removeIndex0Fragment(this::showSystemUI);
+        //防止内存泄漏
+        guideFragment = null;
     }
 
     private void showSystemUI() {

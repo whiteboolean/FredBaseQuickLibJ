@@ -16,6 +16,7 @@ import com.frame.news.R;
 import com.frame.news.databinding.FragmentNewsListBinding;
 import com.frame.news.headlinenews.OnLoadDataListener;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 
@@ -27,6 +28,7 @@ public class NewsListFragment extends MvvmFragment<FragmentNewsListBinding, News
     private String mChannelName = "";
     protected final static String BUNDLE_KEY_PARAM_CHANNEL_ID = "bundle_key_param_channel_id";
     protected final static String BUNDLE_KEY_PARAM_CHANNEL_NAME = "bundle_key_param_channel_name";
+    private OnLoadDataStateListener onLoadDataListener;
 
     public static NewsListFragment newInstance(String channelId, String channelName) {
         NewsListFragment fragment = new NewsListFragment();
@@ -60,33 +62,24 @@ public class NewsListFragment extends MvvmFragment<FragmentNewsListBinding, News
     protected void initViews() {
         List<PictureTitleViewViewModel> value = viewModel.dataList.getValue();
         mAdapter = new NewsListRecyclerViewAdapter(R.layout.picture_title_view, value);
-        viewModel.load(mChannelId, mChannelName, new OnLoadDataStateListener());
+        onLoadDataListener = new OnLoadDataStateListener(this, dataBinding);
+        viewModel.load(mChannelId, mChannelName, onLoadDataListener);
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         dataBinding.recyclerView.setAdapter(mAdapter);
         viewModel.dataList.observe(getViewLifecycleOwner(), pictureTitleViewViewModels -> {
             mAdapter.setList(pictureTitleViewViewModels);
             showContent();
         });
-        dataBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                viewModel.load(mChannelId, mChannelName, new OnLoadDataStateListener());
-            }
-        });
+        dataBinding.swipeRefreshLayout.setOnRefreshListener(() -> viewModel.load(mChannelId, mChannelName, onLoadDataListener));
         setLoadSir(dataBinding.swipeRefreshLayout);
         showLoading();
-        initLoadMore();
+        initLoadMore(onLoadDataListener);
         initSwitch();
     }
 
-    private void initLoadMore() {
+    private void initLoadMore(OnLoadDataListener onLoadDataListener) {
         mAdapter.getLoadMoreModule().setLoadMoreView(new CustomLoadMoreView());
-        mAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                viewModel.loadNextPage(mChannelId, mChannelName, new OnLoadDataStateListener());
-            }
-        });
+        mAdapter.getLoadMoreModule().setOnLoadMoreListener(() -> viewModel.loadNextPage(mChannelId, mChannelName, onLoadDataListener));
         mAdapter.getLoadMoreModule().setAutoLoadMore(true);
         //当自动加载开启，同时数据不满一屏时，是否继续执行自动加载更多(默认为true)
         mAdapter.getLoadMoreModule().setEnableLoadMoreIfNotFullPage(false);
@@ -95,9 +88,8 @@ public class NewsListFragment extends MvvmFragment<FragmentNewsListBinding, News
     @Override
     protected void onRetryBtnClick(View view) {
         showLoading();
-        viewModel.load(mChannelId, mChannelName, new OnLoadDataStateListener());
+        viewModel.load(mChannelId, mChannelName, onLoadDataListener);
     }
-
 
     private void initSwitch() {
         dataBinding.autoLoadMoreSwitch.setChecked(mAdapter.getLoadMoreModule().isAutoLoadMore());
@@ -115,16 +107,31 @@ public class NewsListFragment extends MvvmFragment<FragmentNewsListBinding, News
     }
 
 
-    class OnLoadDataStateListener implements OnLoadDataListener {
+    public static class OnLoadDataStateListener implements OnLoadDataListener {
+        //使用弱引用避免内存泄漏问题
+        private WeakReference<FragmentNewsListBinding> dataBinding;
+        private WeakReference<NewsListFragment> newsListFragment;
+
+        public OnLoadDataStateListener(NewsListFragment newsListFragment, FragmentNewsListBinding dataBinding) {
+            this.dataBinding = new WeakReference<>(dataBinding);
+            this.newsListFragment = new WeakReference<>(newsListFragment);
+        }
+
         @Override
         public void onLoadSuccess() {
-            dataBinding.llContent.postDelayed(() -> dataBinding.swipeRefreshLayout.setRefreshing(false), 500);
+            if (dataBinding.get() != null) {
+                dataBinding.get().llContent.postDelayed(() -> dataBinding.get().swipeRefreshLayout.setRefreshing(false), 500);
+            }
         }
 
         @Override
         public void onLoadFailed(String message) {
-            onRefreshFailure(message);
-            dataBinding.llContent.postDelayed(() -> dataBinding.swipeRefreshLayout.setRefreshing(false), 300);
+            if (dataBinding.get() != null) {
+                dataBinding.get().llContent.postDelayed(() -> dataBinding.get().swipeRefreshLayout.setRefreshing(false), 500);
+            }
+            if (newsListFragment.get() != null) {
+                newsListFragment.get().onRefreshFailure(message);
+            }
         }
     }
 

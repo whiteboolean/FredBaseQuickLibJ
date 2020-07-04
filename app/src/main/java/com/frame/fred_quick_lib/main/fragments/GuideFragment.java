@@ -23,7 +23,10 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
 
     private static final String TAG = "GuideFragment";
     private IMainActivity iMainActivity;
-    public GuideFragment(){}
+
+    public GuideFragment() {
+    }
+
     public GuideFragment(IMainActivity iMainActivity) {
         this.iMainActivity = iMainActivity;
     }
@@ -48,10 +51,6 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
         initGuideView(activity);
     }
 
-    @Override
-    protected void onRetryBtnClick(View v) {
-
-    }
 
     @Override
     protected String getFragmentTag() {
@@ -100,8 +99,14 @@ public class GuideFragment extends MvvmFragment<FragmentGuideHomeBinding, GuideV
 
 
     private void btnOnClick(View view) {
-        if (iMainActivity!=null){
+        if (iMainActivity != null) {
             iMainActivity.removeMeAndGoNextFragment();
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        iMainActivity = null;
     }
 }

@@ -20,6 +20,7 @@ import com.frame.baselib.utils.DebugUtil;
 import com.frame.baselib.utils.ToastUtil;
 import com.frame.baselib.view.loadsir.EmptyCallback;
 import com.frame.baselib.view.loadsir.ErrorCallback;
+import com.frame.baselib.view.loadsir.LoadingCallback;
 import com.frame.baselib.view.loadsir.LottieLoadingCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
@@ -103,7 +104,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
     @Override
     public void showLoading() {
         if (mLoadService != null) {
-            mLoadService.showCallback(LottieLoadingCallback.class);
+            mLoadService.showCallback(LoadingCallback.class);
         }
     }
 
@@ -117,7 +118,9 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends Android
         }
     }
 
-    protected abstract void onRetryBtnClick(View view);
+     protected void onRetryBtnClick(View view){
+
+    };
 
     @Override
     public void onLoadMoreFailure(String message) {

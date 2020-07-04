@@ -19,11 +19,9 @@ android {
         vectorDrawables.useSupportLibrary true
     }
 
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
     }
 
     buildTypes {
@@ -159,7 +157,7 @@ dependencies {
     def youthBanner = ext.youthBannerVersion
     api "com.youth.banner:banner:$youthBanner"
 
-    def lottie = ext.lottie
+    def lottie = ext.lottieVersion
     api "com.airbnb.android:lottie:$lottie"
 
     def badgeView = ext.badgeView
@@ -206,5 +204,10 @@ dependencies {
 
     def tkRefreshLayout = ext.tkRefreshLayoutVersion
     api "com.lcodecorex:tkrefreshlayout:${tkRefreshLayout}"
+
+    def faceBookStetho = ext.faceBookStethoVersion
+    api "com.facebook.stetho:stetho-okhttp3:${faceBookStetho}"
+    api "com.facebook.stetho:stetho-js-rhino:${faceBookStetho}"
+    api "com.facebook.stetho:stetho:${faceBookStetho}"
 
 }
